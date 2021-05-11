@@ -1,10 +1,10 @@
 import React from 'react';
-import {ReactComponent as Test} from "./Test.svg";
+import {ReactComponent as Background} from "./Test.svg";
 
 function Home() {
   return(
     <>
-      <Test />
+      <Background/>
     </>
   )
 }
