@@ -30,6 +30,7 @@ html, body {
   margin: 0 auto;
   position: relative;
   z-index: 5;
+  color: #FFF;
 }
 
 .container-position {
@@ -39,10 +40,19 @@ html, body {
 
 .form-text {
   color: #FFF !important;
-  font-size: 1.3em;
+  font-size: 1.15em;
   font-weight: 600;
 }
 
-.input-color, input {
-  background-color: red;
+.input-color{
+  background-image: linear-gradient(to right, #6E4EA1 ,#461f7a);
+  border: 0px solid;
+}
+
+.input-color::placeholder {
+  color: #FFF;
+}
+
+.input-color:focus {
+  background-image: linear-gradient(to right, #FEA168, #FEA168);
 }
