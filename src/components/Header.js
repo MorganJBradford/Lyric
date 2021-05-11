@@ -14,8 +14,8 @@ function Header(props) {
         <Navbar.Collapse id='responsive-navbar-nav' className="navbar">
           <Nav>
             {/* If state is something show username */}
-            <Nav.Link className="navbar">Sign up</Nav.Link>
-            <Nav.Link className="navbar">Login</Nav.Link>
+            <Nav.Link className="navbar navbar-text">Sign up</Nav.Link>
+            <Nav.Link className="navbar navbar-text">Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
