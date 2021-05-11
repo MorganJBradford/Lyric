@@ -8,10 +8,10 @@ function MainContent() {
   let currentlyVisibleState = <Home/>;
   
   return (
-    <>
+    <div className="bgImage">
       <Header/>
       {currentlyVisibleState}
-    </>
+    </div>
   );
 }
 
