@@ -10,7 +10,7 @@ function Home() {
       <Container className="container-position">
         <Form className="form-style">
           <Form.Group controlId="formBasicSearch">
-            <Form.Control size="lg" type="text" placeholder="Search..."></Form.Control>
+            <Form.Control size="lg" type="text" placeholder="Search..." className="input-color"></Form.Control>
             <Form.Text className="form-text">
               Search by artist, song or album
             </Form.Text>
