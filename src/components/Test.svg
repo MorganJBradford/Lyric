@@ -1,0 +1,32 @@
+<div className="bgImage"></div>
+<svg className="blobCont">
+    <img src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d"  style={{mask:"url(#mask)", width: "100%", height: "100%", preserveAspectRatio:"xMidYMid slice"}} />
+      <defs>
+      <filter id="gooey" style={{height: "130%"}}>
+        <feGaussianBlur style={{in: "SourceGraphic", stdDeviation: "15", result: "blur" }}/>
+        <feColorMatrix  style={{in: "blur", mode:"matrix", values:"1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7", result: "goo"}} />
+      </filter>
+    </defs>
+      <mask id="mask" style={{x:"0", y:"0"}}>
+        <g style={{filter: "url(#gooey)"}}>
+          <circle className="blob"  cx="10%" cy= "10%" r= "80"/>
+          <circle className="blob"  cx= "50%" cy= "10%" r= "40" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "17%" cy= "15%" r= "70" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "90%" cy= "20%" r= "120" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "30%" cy= "25%" r= "30" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "50%" cy= "60%" r= "80" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "70%" cy= "90%" r= "10" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "90%" cy= "60%" r= "90" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "30%" cy= "90%" r= "80" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "10%" cy= "10%" r= "80" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "50%" cy= "10%" r= "20" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "17%" cy= "15%" r= "70" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "40%" cy= "20%" r= "120" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "30%" cy= "25%" r= "30" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "80%" cy= "60%" r= "80" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "17%" cy= "10%" r= "100" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "40%" cy= "60%" r= "90" style={{fill: "white", stroke:"white"}}/>
+          <circle className="blob"  cx= "10%" cy= "50%" r= "80" style={{fill: "white", stroke:"white"}}/>
+        </g>
+      </mask>
+  </svg>
