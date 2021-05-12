@@ -7,8 +7,9 @@ import AlbumList from './AlbumList';
 import Lyrics from './Lyrics';
 import Footer from "./Footer";
 
-class MainContent extends React.Component {
 
+
+class MainContent extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -20,11 +21,6 @@ class MainContent extends React.Component {
     }
   }
 
-
-  handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const search = e.target.search.value;
-  }
 
   render() {
     let currentlyVisibleState = null;
