@@ -44,6 +44,8 @@ html, body {
   font-weight: 600;
 }
 
+
+
 .input-color{
   background-image: linear-gradient(to right, #6E4EA1 ,#461f7a);
   border: 0px solid;
@@ -55,4 +57,5 @@ html, body {
 
 .input-color:focus {
   background-image: linear-gradient(to right, #FEA168, #FEA168);
+  color: #FFF;
 }
