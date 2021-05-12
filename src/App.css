@@ -26,7 +26,7 @@ html, body {
 
 .form-style {
   padding-top: 20%;
-  max-width: 50%;
+  max-width: 40%;
   margin: 0 auto;
   position: relative;
   z-index: 5;
@@ -44,11 +44,10 @@ html, body {
   font-weight: 600;
 }
 
-
-
 .input-color{
   background-image: linear-gradient(to right, #6E4EA1 ,#461f7a);
   border: 0px solid;
+  color: #FFF;
 }
 
 .input-color::placeholder {
@@ -56,6 +55,20 @@ html, body {
 }
 
 .input-color:focus {
+  animation: fade 1s ease-in;
   background-image: linear-gradient(to right, #FEA168, #FEA168);
   color: #FFF;
+}
+
+.button-color {
+  background-color: #6E4EA1;
+}
+
+.button-color:hover {
+  background-color: #FEA168;
+  border-color: #FEA168;
+}
+
+@keyframes fade {
+  0%{background-image: linear-gradien #6E4EA1}
 }
