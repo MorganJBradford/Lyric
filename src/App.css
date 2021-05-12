@@ -24,6 +24,17 @@ html, body {
 
 /* hybrixmatch */
 
+#move {
+  animation: move 2s ease-in;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.26,.2,.47,1);
+}
+
+@keyframes move {
+  0%{padding-top:20%}
+  100%{padding-top: 28%}
+}
+
 .form-style {
   padding-top: 20%;
   max-width: 40%;
@@ -55,20 +66,32 @@ html, body {
 }
 
 .input-color:focus {
-  animation: fade 1s ease-in;
+  /* animation: fade 2s ease-in; */
   background-image: linear-gradient(to right, #FEA168, #FEA168);
   color: #FFF;
 }
 
-.button-color {
+#button-color {
   background-color: #6E4EA1;
+  display: block;
+  margin: auto;
+  margin-bottom: 5px;
 }
 
-.button-color:hover {
-  background-color: #FEA168;
-  border-color: #FEA168;
+#button-color:hover, #button-color:focus, #button-color:active {
+  background-color: #FEA168 !important;
+  border-color: #FEA168 !important;
+  box-shadow: 0 0 0 0.25rem #6E4EA1;
 }
 
-@keyframes fade {
-  0%{background-image: linear-gradien #6E4EA1}
-}
+
+
+/* @keyframes fade {
+  0%{background-image: linear-gradient(#6E4EA1)}
+  15%{background-image: linear-gradient(to right,#6E4EA1,#FEA168)}
+  35%{background-image: linear-gradient(to right,#6E4EA1,#FEA168)}
+  50%{background-image: linear-gradient(to right,#6E4EA1,#FEA168)}
+  65%{background-image: linear-gradient(to right,#6E4EA1,#FEA168)}
+  80%{background-image: linear-gradient(to right,#6E4EA1,#FEA168)}
+  100%{background-image: linear-gradient(#FEA168)}
+} */
