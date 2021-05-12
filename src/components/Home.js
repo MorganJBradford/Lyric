@@ -5,12 +5,12 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import PropTypes from 'prop-types';
 import { AppContext } from "../AppContext";
 import ArtistApiCall from "./ArtistApiCall";
+import ArtistList from "./ArtistList";
 
 function Home() {
-  const { search, setSearch } = useContext(AppContext);
+  const { search, setSearch, animationState, setAnimationState } = useContext(AppContext);
 
   const handleSearch = e => {
     e.preventDefault();
@@ -32,16 +32,19 @@ function Home() {
       <Background />
       <Container className="container-position">
         <Row>
-          <Col lg={6}>
-            <Form className="form-style" onSubmit={handleSearch}>
+          <ArtistList/>
+        </Row>
+        <Row>
+          <Col lg={12}>
+            <Form className="form-style" id={animationState ? 'move' : ''}onSubmit={handleSearch}>
               <Form.Group controlId="formBasicSearch">
                 <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color"></Form.Control>
                 <Form.Text className="form-text">
                   Search by Artist
                 </Form.Text>
               </Form.Group>                                
-              <Button size="lg" type="submit" className="button-color">                                                            
-                Search!
+              <Button size="lg" type="submit" id="button-color" className={animationState ? 'fade' : ''} onClick={() => setAnimationState(true)}>                                                            
+                Enter
               </Button>
             </Form>
           </Col>
@@ -54,8 +57,5 @@ function Home() {
   );
 }
 
-Home.propTypes = {
-  handleSearchSubmit: PropTypes.func
-}
 
 export default Home;
