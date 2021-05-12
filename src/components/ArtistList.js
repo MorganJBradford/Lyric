@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { AppContext } from "../AppContext";
+import Artist from "./Artist";
 
-export default function ArtistList() {
+function ArtistList(props) {
+  const { artistList } = useContext(AppContext);
+  if (artistList !== null) {
 
-  return (
-    <h1>Hello</h1>
-  );
+    
+    
+    return (
+      <>
+        {artistList.map((artist, index) =>
+          <Artist 
+          names={artistList[index].artist.artist_name}
+          key={artistList[index].artist.artist_id}/>
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+      </>
+    );
+  }
 }
+
+export default ArtistList;
