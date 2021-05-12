@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../AppContext";
 import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
 
 function ArtistApiCall() {
-  const {artistList, setArtistList, search} = useContext(AppContext);
-  const [isLoading, setLoading] = useState(true);
+  const { setArtistList, search} = useContext(AppContext);
 
   useEffect(() => {
       axios({
@@ -13,9 +12,7 @@ function ArtistApiCall() {
         adapter: jsonpAdapter
       }).then(res => {
           const {artist_list} = res.data.message.body;
-          console.log(artist_list);
           setArtistList(artist_list);
-          setLoading(false);
         })
         .catch(err => {
           console.log(err)
@@ -24,7 +21,6 @@ function ArtistApiCall() {
 
   return (
     <>
-      {isLoading ? <div>...Loading</div> : <div>{artistList[0].artist.artist_name}</div>}
     </>
   );
 }
