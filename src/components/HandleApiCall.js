@@ -7,7 +7,7 @@ function HandleApiCall() {
   const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrack, setTrackList} = useContext(AppContext);
   useEffect(() => {
       axios({
-        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=144172c3b539a1e2ca17187c6f05b8ae`,
+        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=`,
         adapter: jsonpAdapter
       }).then(res => {
         if (searchMethod === "artist.search") {
