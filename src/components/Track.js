@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { AppContext } from "../AppContext";
 import '../App.css'
 
-function Artist(props) {
-  const { artistList } = useContext(AppContext);
-  if (artistList !== null) {
+function Song(props) {
+  const { trackList } = useContext(AppContext);
+  if (trackList !== null) {
     return (
       <>
         <div className="name-alignment">{props.names}</div>
@@ -17,4 +17,4 @@ function Artist(props) {
     );
 }
 
-export default Artist;
+export default Song;

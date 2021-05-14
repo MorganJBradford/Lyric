@@ -6,14 +6,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { AppContext } from "../AppContext";
-import ArtistApiCall from "./ArtistApiCall";
+import HandleApiCall from "./HandleApiCall";
 import ArtistList from "./ArtistList";
+import AlbumList from "./AlbumList";
+import TrackList from './TrackList';
+import Card from 'react-bootstrap/Card';
+
 
 function Home() {
-  const { search, setSearch, animationState, setAnimationState } = useContext(AppContext);
+  const { search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType } = useContext(AppContext);
 
   const handleSearch = e => {
     e.preventDefault();
+    setSearchMethod("artist.search");
+    setQueryType("q_artist");
     let artist = e.target.search.value.replace(" ", "%20");
     setSearch(artist);
     renderArtists();
@@ -23,7 +29,7 @@ function Home() {
     if(search === null) {
       return <></>
     } else {
-      return <ArtistApiCall />
+      return <HandleApiCall />
     }
   }
 
@@ -32,7 +38,14 @@ function Home() {
       <Background />
       <Container className="container-position">
         <Row>
-          <ArtistList/>
+          <Card>
+            <Card.Header>Returned</Card.Header>
+            <Card.Text>
+              <ArtistList/>
+              <AlbumList />
+              <TrackList />
+            </Card.Text>
+          </Card>
         </Row>
         <Row>
           <Col lg={12}>
