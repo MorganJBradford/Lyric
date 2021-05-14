@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { AppContext } from "../AppContext";
+import '../App.css'
 
 function Artist(props) {
   const { artistList } = useContext(AppContext);
   if (artistList !== null) {
     return (
       <>
-        <div>{props.names}</div>
+        <div className="name-alignment">{props.names}</div>
       </>
     );
   }
