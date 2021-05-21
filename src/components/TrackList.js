@@ -20,7 +20,7 @@ function SongList(props) {
     // renderAlbums();
   }
 
-  const renderAlbums = () => {
+  const renderLyrics = () => {
     return <HandleApiCall />
   }
 
@@ -43,6 +43,14 @@ function SongList(props) {
   } else {
     return (
       <>
+      {/* <Row className="list-alignment">
+        <h3 className="name-alignment tracks">Track</h3>
+        <div className="tracks">
+          <Song 
+            names={trackList[0].track.track_name}
+          />
+        </div>
+      </Row> */}
       </>
     );
   }

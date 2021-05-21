@@ -7,13 +7,12 @@ function HandleApiCall() {
   const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrack, setTrackList} = useContext(AppContext);
   useEffect(() => {
       axios({
-        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=`,
+        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY}`,
         adapter: jsonpAdapter
       }).then(res => {
         if (searchMethod === "artist.search") {
           const {artist_list} = res.data.message.body;
           setArtistList(artist_list);
-          console.log(artist_list);
         } else if (searchMethod === "artist.albums.get") {
           const { album_list } = res.data.message.body;
           const filteredList = album_list.filter((obj, pos, arr) => {
@@ -21,8 +20,8 @@ function HandleApiCall() {
           });
           setAlbumList(filteredList);
         } else if (searchMethod === "track.search") {
-          const { track } = res.data.message.body.track_list[0];
-          setTrack(track);
+          const { track_list } = res.data.message.body;
+          setTrackList(track_list);
         } else if (searchMethod === "album.tracks.get") {
           const { track_list } = res.data.message.body;
           setTrackList(track_list);

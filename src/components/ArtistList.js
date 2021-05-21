@@ -9,11 +9,13 @@ function ArtistList(props) {
   const { artistList, setSearchMethod, setQueryType, setSearch } = useContext(AppContext);
 
   const handleClick = (id, index) => {
-    setQueryType("artist_id");
+    console.log(id);
     setSearch(id);
     if (index === 0) {
+      setQueryType("artist_id");
       setSearchMethod("artist.albums.get");
     } else {
+      setQueryType("f_artist_id");
       setSearchMethod("track.search");
     }
     renderAlbums();
