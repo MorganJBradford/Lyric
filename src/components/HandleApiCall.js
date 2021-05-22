@@ -4,7 +4,7 @@ import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
 
 function HandleApiCall() {
-  const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrack, setTrackList} = useContext(AppContext);
+  const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrackList, lyrics, setLyrics} = useContext(AppContext);
   useEffect(() => {
       axios({
         url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY}`,
@@ -25,6 +25,11 @@ function HandleApiCall() {
         } else if (searchMethod === "album.tracks.get") {
           const { track_list } = res.data.message.body;
           setTrackList(track_list);
+        } else if (searchMethod === "track.lyrics.get") {
+          console.log(res);
+          const { lyrics_body } = res.data.message.body.lyrics;
+          setLyrics(lyrics_body);
+          console.log(lyrics_body);
         }
       }).catch(err => {
           console.log(err)
@@ -38,31 +43,3 @@ function HandleApiCall() {
 }
 
 export default HandleApiCall;
-
-// const uniqueStringSet = (string) => {
-//   const uniqueSet = {...new Set(string)};
-//   return (uniqueSet === string.length);
-// }
-
-/*
-setTimeout(() => {
-  
-}, 3000)
-
-*/
-
-/*
-
-async function getArtist(search) {
-  const url = https://api.musixmatch.com/ws/1.1/artist.search?format=jsonp&callback=callback&q_artist=${search}&apikey=`;
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
-  setArtistList(data);
-  setLoading(false);
-}
-
-*/
-
-// import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
-// import useAxios from "axios-hooks";

@@ -10,6 +10,7 @@ import HandleApiCall from "./HandleApiCall";
 import ArtistList from "./ArtistList";
 import AlbumList from "./AlbumList";
 import TrackList from './TrackList';
+import Lyrics from './Lyrics';
 import Card from 'react-bootstrap/Card';
 
 
@@ -44,6 +45,7 @@ function Home() {
               <ArtistList/>
               <AlbumList />
               <TrackList />
+              <Lyrics />
             </Card.Text>
           </Card>
         </Row>

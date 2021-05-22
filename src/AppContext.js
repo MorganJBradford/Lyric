@@ -10,7 +10,7 @@ export const AppProvider = ({children}) => {
   const [search, setSearch] = useState(null);
   const [searchMethod, setSearchMethod] = useState(null);
   const [trackList, setTrackList] = useState(null);
-  const [track, setTrack] = useState(null);
+  const [lyrics, setLyrics] = useState(null);
 
 
   return (
@@ -30,8 +30,8 @@ export const AppProvider = ({children}) => {
         setSearchMethod,
         trackList,
         setTrackList,
-        track,
-        setTrack
+        lyrics,
+        setLyrics
       }}
     >
       {children}
