@@ -6,13 +6,13 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function SongList(props) {
-  const { trackList, setSearchMethod, setQueryType, setSearch } = useContext(AppContext);
+  const { trackList, setSearchMethod, setQueryType, setSearch, setCurrentList } = useContext(AppContext);
 
   const handleClick = (id, index) => {
-    console.log(id);
     setQueryType("track_id");
     setSearch(id);
     setSearchMethod("track.lyrics.get");
+    setCurrentList("lyrics");
     renderTracks();
   }
 
