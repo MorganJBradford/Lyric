@@ -4,7 +4,7 @@ import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
 
 function HandleApiCall() {
-  const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrackList, lyrics, setLyrics} = useContext(AppContext);
+  const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrackList, lyrics, setLyrics, setCurrentList} = useContext(AppContext);
   useEffect(() => {
       axios({
         url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY}`,
@@ -26,16 +26,16 @@ function HandleApiCall() {
           const { track_list } = res.data.message.body;
           setTrackList(track_list);
         } else if (searchMethod === "track.lyrics.get") {
-          console.log(res);
+          console.log(res.data.message)
           const { lyrics_body } = res.data.message.body.lyrics;
           setLyrics(lyrics_body);
-          console.log(lyrics_body);
         }
       }).catch(err => {
           console.log(err)
+          setCurrentList("error");
         });
   }, [search]);
-
+  
   return (
     <>
     </>
