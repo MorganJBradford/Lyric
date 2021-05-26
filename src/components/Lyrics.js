@@ -1,7 +1,8 @@
-import React from 'react';
-
+import React, {useContext} from 'react';
+import {AppContext} from '../AppContext';
 export default function Lyrics() {
-  return(
-    <h1>Hello</h1>
-  )
+  const { lyrics } = useContext(AppContext);
+  return (
+    <h5>{lyrics}</h5>
+  );
 }

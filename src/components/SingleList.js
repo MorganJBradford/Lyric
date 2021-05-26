@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../AppContext";
 import Row from 'react-bootstrap/Row';
-import Song from "./Track";
+import Single from "./Single";
 import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
@@ -26,9 +26,9 @@ function SongList(props) {
       <>
         <Row className="list-alignment">
           <h3 className="name-alignment tracks">Tracks</h3>
-          {trackList.map((song, index) =>
+          {trackList.map((single, index) =>
           <div className="tracks" onClick={() => handleClick(trackList[index].track.track_id)}>
-            <Song 
+            <Single 
             names={trackList[index].track.track_name}
             key={index}/>
           </div>
@@ -45,5 +45,3 @@ function SongList(props) {
 }
 
 export default SongList;
-
-// onClick={() => handleClick(trackList[index].album.album_id, index)}

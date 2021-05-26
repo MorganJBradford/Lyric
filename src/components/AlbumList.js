@@ -6,12 +6,13 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function AlbumList(props) {
-  const { albumList, setSearchMethod, setQueryType, setSearch } = useContext(AppContext);
+  const { albumList, setSearchMethod, setQueryType, setSearch, setCurrentList } = useContext(AppContext);
 
   const handleClick = (id) => {
     setQueryType("album_id");
     setSearch(id);
     setSearchMethod("album.tracks.get");
+    setCurrentList("trackList");
     renderAlbums();
   }
 
