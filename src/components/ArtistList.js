@@ -6,17 +6,18 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function ArtistList(props) {
-  const { artistList, setSearchMethod, setQueryType, setSearch } = useContext(AppContext);
+  const { artistList, setSearchMethod, setQueryType, setSearch, setCurrentList } = useContext(AppContext);
 
   const handleClick = (id, index) => {
-    console.log(id);
     setSearch(id);
     if (index === 0) {
       setQueryType("artist_id");
       setSearchMethod("artist.albums.get");
+      setCurrentList("albumList");
     } else {
       setQueryType("f_artist_id");
       setSearchMethod("track.search");
+      setCurrentList("singleList");
     }
     renderAlbums();
   }
