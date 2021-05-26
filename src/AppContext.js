@@ -15,6 +15,7 @@ export const AppProvider = ({children}) => {
   const [currentList, setCurrentList] = useState(null);
   const [backBtn, setBackBtn] = useState([]);
   const [prevState, setPrevState] = useState(null);
+  const [apiCall, setApiCall] = useState(false);
 
 
   return (

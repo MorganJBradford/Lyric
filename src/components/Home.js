@@ -17,7 +17,7 @@ import SingleList from "./SingleList";
 
 
 function Home() {
-  const { search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState} = useContext(AppContext);
+  const { search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList} = useContext(AppContext);
   let currentlyVisibleState = null;
   const handleSearch = e => {
     e.preventDefault();

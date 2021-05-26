@@ -10,6 +10,7 @@ function HandleApiCall() {
         url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY}`,
         adapter: jsonpAdapter
       }).then(res => {
+        // setApiCall(true);
         if (searchMethod === "artist.search") {
           const {artist_list} = res.data.message.body;
           setArtistList(artist_list);
@@ -30,6 +31,7 @@ function HandleApiCall() {
           const { lyrics_body } = res.data.message.body.lyrics;
           setLyrics(lyrics_body);
         }
+        // setApiCall(False);
       }).catch(err => {
           console.log(err)
           setCurrentList("error");
