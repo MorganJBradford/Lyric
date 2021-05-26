@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 export const AppContext = React.createContext();
 
 export const AppProvider = ({children}) => {
@@ -11,6 +12,9 @@ export const AppProvider = ({children}) => {
   const [searchMethod, setSearchMethod] = useState(null);
   const [trackList, setTrackList] = useState(null);
   const [lyrics, setLyrics] = useState(null);
+  const [currentList, setCurrentList] = useState(null);
+  const [backBtn, setBackBtn] = useState([]);
+  const [prevState, setPrevState] = useState(null);
 
 
   return (
@@ -22,6 +26,8 @@ export const AppProvider = ({children}) => {
         setAnimationState,
         artistList,
         setArtistList,
+        backBtn,
+        setBackBtn,
         queryType,
         setQueryType,
         search,
@@ -31,7 +37,11 @@ export const AppProvider = ({children}) => {
         trackList,
         setTrackList,
         lyrics,
-        setLyrics
+        setLyrics,
+        currentList,
+        setCurrentList,
+        prevState,
+        setPrevState
       }}
     >
       {children}
