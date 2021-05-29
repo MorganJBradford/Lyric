@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../AppContext";
+import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Single from "./Single";
 import '../App.css';
@@ -27,15 +28,17 @@ function SongList(props) {
   if (trackList !== null) {
     return (
       <>
-        <Row className="list-alignment">
-          <h3 className="name-alignment tracks">Tracks</h3>
-          {trackList.map((single, index) =>
-          <div className="tracks" onClick={() => handleClick(trackList[index].track.track_id)}>
-            <Single 
-            names={trackList[index].track.track_name}
-            key={index}/>
-          </div>
-          )}
+        <Row className="list-alignment justify-content-md-center">
+          <Col sm={12}>
+            <h3 className="name-alignment tracks">Tracks</h3>
+            {trackList.map((single, index) =>
+            <div className="tracks cursor mb-1" onClick={() => handleClick(trackList[index].track.track_id)}>
+              <Single 
+              names={trackList[index].track.track_name}
+              key={index}/>
+            </div>
+            )}
+          </Col>
         </Row>
       </>
     );

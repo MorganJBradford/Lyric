@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../AppContext";
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Album from "./Album";
 import '../App.css';
 import HandleApiCall from "./HandleApiCall";
@@ -26,15 +27,17 @@ function AlbumList(props) {
   if (albumList !== null) {
     return (
       <>
-        <Row className="list-alignment">
-        <h3 className="name-alignment albums">Albums:</h3>
-          {albumList.map((album, index) =>
-          <div className="albums" onClick={() => handleClick(albumList[index].album.album_id)}>
-            <Album 
-            names={albumList[index].album.album_name}
-            key={index}/>
-          </div>
-          )}
+        <Row className="list-alignment justify-content-md-center">
+          <Col sm={12}>
+            <h3 className="name-alignment albums">Albums:</h3>
+              {albumList.map((album, index) =>
+              <div className="albums cursor mb-1" onClick={() => handleClick(albumList[index].album.album_id)}>
+                <Album 
+                names={albumList[index].album.album_name}
+                key={index}/>
+              </div>
+            )}
+          </Col>
         </Row>
       </>
     );

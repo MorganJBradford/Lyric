@@ -17,7 +17,7 @@ import SingleList from "./SingleList";
 
 
 function Home() {
-  const { search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList} = useContext(AppContext);
+  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList} = useContext(AppContext);
   let currentlyVisibleState = null;
   const handleSearch = e => {
     e.preventDefault();
@@ -63,42 +63,70 @@ function Home() {
     } else if(prevState === 'albumList') {
       setPrevState('trackList')
     }
-    currentlyVisibleState = <h1>No lyrics g</h1>
+    currentlyVisibleState = <h1 className="no-lyrics">No lyrics available</h1>
+  } 
+
+  if (currentList === "home") {
+    return(
+      <>
+        <Background />
+        <Container className="container-position">
+          <Row>
+            <Col lg={12}>
+              <Form className="form-style" id={animationState ? 'move' : ''} onSubmit={handleSearch}>
+                <Form.Group controlId="formBasicSearch">
+                  <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color"></Form.Control>
+                  <Form.Text className="form-text">
+                    Search by Artist
+                  </Form.Text>
+                </Form.Group>                                
+                <Button size="lg" type="submit" id="button-color" onClick={() => setAnimationState(true)}>                                                            
+                  Enter
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+          <Row>
+            {renderArtists()}  
+          </Row>
+        </Container>
+      </>
+    );
+  } else {
+    return(
+      <>
+        <Background />
+        <Container className="container-position">
+          <Row>
+            <Col lg={12}>
+              <Form className="form-style" id={animationState ? 'move' : ''} onSubmit={handleSearch}>
+                <Form.Group controlId="formBasicSearch">
+                  <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color"></Form.Control>
+                  <Form.Text className="form-text">
+                    Search by Artist
+                  </Form.Text>
+                </Form.Group>                                
+                <Button size="lg" type="submit" id="button-color" className={animationState ? 'fade' : ''} onClick={() => setAnimationState(true)}>                                                            
+                  Enter
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+          <Row>
+            <Card className="list-card mt-5 pb-5">
+            <Button className="back-btn mt-3 mb-1" onClick={() => setCurrentList(prevState)}>Back</Button>
+              <Card.Text className="mb-3">
+                {currentlyVisibleState}
+              </Card.Text>
+            </Card>
+          </Row>
+          <Row>
+            {renderArtists()}  
+          </Row>
+        </Container>
+      </>
+    );
   }
-  return(
-    <>
-      <Background />
-      <Container className="container-position">
-        <Row>
-        
-          <Card>
-            <Card.Text>
-              {currentlyVisibleState}
-              <Button onClick={() => setCurrentList(prevState)}>Test</Button>
-            </Card.Text>
-          </Card>
-        </Row>
-        <Row>
-          <Col lg={12}>
-            <Form className="form-style" id={animationState ? 'move' : ''} onSubmit={handleSearch}>
-              <Form.Group controlId="formBasicSearch">
-                <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color"></Form.Control>
-                <Form.Text className="form-text">
-                  Search by Artist
-                </Form.Text>
-              </Form.Group>                                
-              <Button size="lg" type="submit" id="button-color" className={animationState ? 'fade' : ''} onClick={() => setAnimationState(true)}>                                                            
-                Enter
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-        <Row>
-          {renderArtists()}  
-        </Row>
-      </Container>
-    </>
-  );
 }
 
 
