@@ -6,13 +6,14 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function AlbumList(props) {
-  const { albumList, setSearchMethod, setQueryType, setSearch, setCurrentList } = useContext(AppContext);
+  const { albumList, setSearchMethod, setQueryType, setSearch, setCurrentList, setTrackList, counter, setCounter } = useContext(AppContext);
 
   const handleClick = (id) => {
     setQueryType("album_id");
     setSearch(id);
     setSearchMethod("album.tracks.get");
     setCurrentList("trackList");
+    setCounter(counter + 1);
     renderAlbums();
   }
 
@@ -20,6 +21,7 @@ function AlbumList(props) {
     return <HandleApiCall />
   }
 
+  setTrackList(null);
 
   if (albumList !== null) {
     return (
@@ -39,6 +41,7 @@ function AlbumList(props) {
   } else {
     return (
       <>
+        <p>Loading...</p>
       </>
     );
   }

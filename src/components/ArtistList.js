@@ -6,7 +6,7 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function ArtistList(props) {
-  const { artistList, setSearchMethod, setQueryType, setSearch, setCurrentList } = useContext(AppContext);
+  const { artistList, setSearchMethod, setQueryType, setSearch, setCurrentList, setAlbumList, counter, setCounter } = useContext(AppContext);
 
   const handleClick = (id, index) => {
     setSearch(id);
@@ -19,6 +19,7 @@ function ArtistList(props) {
       setSearchMethod("track.search");
       setCurrentList("singleList");
     }
+    setCounter(counter + 1);
     renderAlbums();
   }
 
@@ -26,6 +27,7 @@ function ArtistList(props) {
     return <HandleApiCall />
   }
 
+  setAlbumList(null);
 
   if (artistList !== null) {
     return (
@@ -45,6 +47,7 @@ function ArtistList(props) {
   } else {
     return (
       <>
+        <p>Loading...</p>
       </>
     );
   }

@@ -6,13 +6,14 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function SongList(props) {
-  const { trackList, setSearchMethod, setQueryType, setSearch, setCurrentList } = useContext(AppContext);
+  const { trackList, setSearchMethod, setQueryType, setSearch, setCurrentList, setLyrics, counter, setCounter } = useContext(AppContext);
 
   const handleClick = (id, index) => {
     setQueryType("track_id");
     setSearch(id);
     setSearchMethod("track.lyrics.get");
     setCurrentList("lyrics");
+    setCounter(counter + 1);
     renderTracks();
   }
 
@@ -20,6 +21,7 @@ function SongList(props) {
     return <HandleApiCall />
   }
 
+  setLyrics(null);
 
   if (trackList !== null) {
     return (
@@ -39,6 +41,7 @@ function SongList(props) {
   } else {
     return (
       <>
+      <p>Loading...</p>
       </>
     );
   }
