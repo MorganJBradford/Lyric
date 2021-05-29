@@ -12,7 +12,7 @@ export const AppProvider = ({children}) => {
   const [searchMethod, setSearchMethod] = useState(null);
   const [trackList, setTrackList] = useState(null);
   const [lyrics, setLyrics] = useState(null);
-  const [currentList, setCurrentList] = useState(null);
+  const [currentList, setCurrentList] = useState("home");
   const [backBtn, setBackBtn] = useState([]);
   const [prevState, setPrevState] = useState(null);
   const [counter, setCounter] = useState(0)
