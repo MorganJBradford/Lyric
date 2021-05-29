@@ -41,7 +41,7 @@ function SongList(props) {
   } else {
     return (
       <>
-      <p>Loading...</p>
+      <p className="loading">Loading...</p>
       </>
     );
   }
