@@ -15,7 +15,9 @@ export const AppProvider = ({children}) => {
   const [currentList, setCurrentList] = useState("home");
   const [backBtn, setBackBtn] = useState([]);
   const [prevState, setPrevState] = useState(null);
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
+  const [modalShow, setModalShow] = useState(false);
+  const [error, setError] = useState(null);
 
 
   return (
@@ -44,7 +46,11 @@ export const AppProvider = ({children}) => {
         prevState,
         setPrevState,
         counter,
-        setCounter
+        setCounter,
+        modalShow,
+        setModalShow,
+        error,
+        setError
       }}
     >
       {children}
