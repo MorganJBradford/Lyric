@@ -14,11 +14,13 @@ import Lyrics from './Lyrics';
 import './../App.css';
 import Card from 'react-bootstrap/Card';
 import SingleList from "./SingleList";
+import Modal from './Modal.js';
 
 
 function Home() {
-  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList} = useContext(AppContext);
+  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow} = useContext(AppContext);
   let currentlyVisibleState = null;
+  let modalVisible = null;
   const handleSearch = e => {
     e.preventDefault();
     setSearchMethod("artist.search");
@@ -39,32 +41,37 @@ function Home() {
 
 
   if (currentList === "artistList") {
+    modalVisible = null;
     setPrevState('home');
     currentlyVisibleState = <ArtistList/>;
   } else if(currentList === "albumList") {
+    modalVisible = null;
     setPrevState('artistList')
     currentlyVisibleState = <AlbumList/>;
   } else if (currentList === "singleList") {
+    modalVisible = null;
     setPrevState("artistList");
+    if(error === 'error') {
+      modalVisible = true;
+    }
     currentlyVisibleState = <SingleList/>
   } else if(currentList === "trackList") {
+    modalVisible = null;
     setPrevState('albumList')
     currentlyVisibleState = <TrackList/>;
-  } else if(currentList === "lyrics") {
+    if(error === 'error') {
+      modalVisible = true;
+    }
+  } else if(error !== "error" && currentList === "lyrics") {
+    console.log("I am in lyrics");
+      modalVisible = null;
       if(prevState === 'artistList') {
         setPrevState('singleList');
       } else if(prevState === 'albumList') {
         setPrevState('trackList')
       }
     currentlyVisibleState = <Lyrics/>;
-  } else if (currentList === "error") {
-    if(prevState === 'artistList') {
-      setPrevState('singleList');
-    } else if(prevState === 'albumList') {
-      setPrevState('trackList')
     }
-    currentlyVisibleState = <h1 className="no-lyrics">No lyrics available</h1>
-  } 
 
   if (currentList === "home") {
     return(
@@ -75,7 +82,7 @@ function Home() {
             <Col lg={12}>
               <Form className="form-style" id={animationState ? 'move' : ''} onSubmit={handleSearch}>
                 <Form.Group controlId="formBasicSearch">
-                  <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color"></Form.Control>
+                  <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color" required></Form.Control>
                   <Form.Text className="form-text">
                     Search by Artist
                   </Form.Text>
@@ -117,6 +124,7 @@ function Home() {
             <Button className="back-btn mt-3 mb-1" onClick={() => setCurrentList(prevState)}>Back</Button>
               <Card.Text className="mb-3">
                 {currentlyVisibleState}
+                {modalVisible ? <Modal show={modalShow} onHide={() => setModalShow(false)}/> : <></>}
               </Card.Text>
             </Card>
           </Row>
@@ -131,3 +139,12 @@ function Home() {
 
 
 export default Home;
+
+
+// How I got the modal to work correctly:
+// The conditional in the onclicks wasn't working because the error state wasn't being changed fast enough. 
+// I realized that if the response throws an error, the lyrics state slice doesn't get updated and remains at null
+// So instead of checking if error === 'error' I checked if lyrics === 'null'
+// This worked for the if and I was able to get into the first block instead of always hitting the else
+// Then once we get to the home component, the call will have been made and the error state slice changed. 
+// So i added a conditional inside of both track list and single list to check if error === 'error' and if it does show the modal and it worked!
