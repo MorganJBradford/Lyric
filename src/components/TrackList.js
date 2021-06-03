@@ -7,15 +7,21 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function SongList(props) {
-  const { trackList, setSearchMethod, setQueryType, setSearch, setCurrentList, setLyrics, counter, setCounter } = useContext(AppContext);
+  const { trackList, setSearchMethod, setQueryType, setSearch, setCurrentList, setLyrics, counter, setCounter, lyrics} = useContext(AppContext);
 
   const handleClick = (id, index) => {
     setQueryType("track_id");
     setSearch(id);
     setSearchMethod("track.lyrics.get");
-    setCurrentList("lyrics");
+    
     setCounter(counter + 1);
     renderTracks();
+  
+    if(lyrics === null) {
+      setCurrentList('trackList');
+    } else {
+      setCurrentList("lyrics");
+    }
   }
 
   const renderTracks = () => {
