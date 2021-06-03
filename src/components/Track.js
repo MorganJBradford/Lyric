@@ -3,11 +3,11 @@ import { AppContext } from "../AppContext";
 import '../App.css'
 
 function Song(props) {
-  const { trackList } = useContext(AppContext);
+  const { trackList, setModalShow } = useContext(AppContext);
   if (trackList !== null) {
     return (
       <>
-        <div className="name-alignment">{props.names}</div>
+        <div className="name-alignment" onClick={() => setModalShow(true)}>{props.names}</div>
       </>
     );
   }
