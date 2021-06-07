@@ -18,7 +18,7 @@ import Modal from './Modal.js';
 
 
 function Home() {
-  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow} = useContext(AppContext);
+  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow, lyrics, setLyrics} = useContext(AppContext);
   let currentlyVisibleState = null;
   let modalVisible = null;
   const handleSearch = e => {
@@ -59,18 +59,28 @@ function Home() {
     modalVisible = null;
     setPrevState('albumList')
     currentlyVisibleState = <TrackList/>;
+    console.log(error)
     if(error === 'error') {
+      console.log("i'm in if")
       modalVisible = true;
     }
   } else if(error !== "error" && currentList === "lyrics") {
-    console.log("I am in lyrics");
       modalVisible = null;
       if(prevState === 'artistList') {
         setPrevState('singleList');
       } else if(prevState === 'albumList') {
-        setPrevState('trackList')
+        setPrevState('trackList');
       }
-    currentlyVisibleState = <Lyrics/>;
+      currentlyVisibleState = <Lyrics/>;
+    }
+
+    const backButton = (prevState) => {
+      if (error !== "error" && currentList === "lyrics") {
+        setLyrics(null);
+        setCurrentList(prevState)
+      } else {
+        setCurrentList(prevState)
+      }
     }
 
   if (currentList === "home") {
@@ -120,8 +130,8 @@ function Home() {
             </Col>
           </Row>
           <Row>
-            <Card className="list-card mt-5 pb-5">
-            <Button className="back-btn mt-3 mb-1" onClick={() => setCurrentList(prevState)}>Back</Button>
+            <Card className="list-card mt-2 pb-4">
+            <Button className="back-btn mt-3 mb-1" onClick={() => backButton(prevState)}>Back</Button>
               <Card.Text className="mb-3">
                 {currentlyVisibleState}
                 {modalVisible ? <Modal show={modalShow} onHide={() => setModalShow(false)}/> : <></>}

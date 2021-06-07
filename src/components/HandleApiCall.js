@@ -4,7 +4,7 @@ import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
 
 function HandleApiCall() {
-  const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrackList, setLyrics, setCurrentList, albumList, counter, setError, lyrics} = useContext(AppContext);
+  const { setAlbumList, setModalShow, setArtistList, queryType, search, searchMethod, setTrackList, setLyrics, setCurrentList, albumList, counter, setError, lyrics} = useContext(AppContext);
   useEffect(() => {
       setError(null);
       axios({
@@ -20,15 +20,20 @@ function HandleApiCall() {
             return arr.map(mapObj => mapObj.album["album_name"]).indexOf(obj.album["album_name"]) === pos;
           });
           setAlbumList(filteredList);
-        } else if (searchMethod === "track.search") {
+        } else if (searchMethod === "track.search" || searchMethod === "album.tracks.get") {
           const { track_list } = res.data.message.body;
-          setTrackList(track_list);
-        } else if (searchMethod === "album.tracks.get") {
-          const { track_list } = res.data.message.body;
-          setTrackList(track_list);
+          if (track_list.length < 1) {
+            setError('error');
+          } else {
+            setTrackList(track_list);
+          }
         } else if (searchMethod === "track.lyrics.get") {
           const { lyrics_body } = res.data.message.body.lyrics;
-          setLyrics(lyrics_body);
+          if (lyrics_body.length < 1) {
+            setError('error');
+          } else {
+            setLyrics(lyrics_body);
+          }
         }
       }).catch(err => {
           console.log(err);
