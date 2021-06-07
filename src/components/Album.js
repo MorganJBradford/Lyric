@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { AppContext } from "../AppContext";
 
 export default function Album(props) {
-  const { albumList } = useContext(AppContext);
+  const { albumList, setModalShow } = useContext(AppContext);
   if(albumList != null) {
     return (
       <>
-        <div className="name-alignment">{props.names}</div>
+        <div className="name-alignment" onClick={() => setModalShow(true)}>{props.names}</div>
       </>
     )
   }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../AppContext";
 import Col from "react-bootstrap/Col";
 import Row from 'react-bootstrap/Row';
@@ -16,19 +16,19 @@ function SongList(props) {
     
     setCounter(counter + 1);
     renderTracks();
+  }
   
+  useEffect(() => {
     if(lyrics === null) {
       setCurrentList('trackList');
     } else {
-      setCurrentList("lyrics");
+      setCurrentList("lyrics")
     }
-  }
+  }, [lyrics])
 
   const renderTracks = () => {
     return <HandleApiCall />
   }
-
-  setLyrics(null);
 
   if (trackList !== null) {
     return (
@@ -37,7 +37,7 @@ function SongList(props) {
           <Col sm={12}>
             <h3 className="name-alignment tracks">Tracks</h3>
             {trackList.map((song, index) =>
-            <div className="tracks cursor mb-1" onClick={() => handleClick(trackList[index].track.track_id)}>
+            <div className="tracks cursor mb-1" onClick={() => (handleClick(trackList[index].track.track_id))}>
               <Song 
               names={trackList[index].track.track_name}
               key={index}/>
