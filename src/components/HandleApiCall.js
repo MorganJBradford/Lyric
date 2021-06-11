@@ -8,7 +8,7 @@ function HandleApiCall() {
   useEffect(() => {
       setError(null);
       axios({
-        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY}`,
+        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY_MIKEY}`,
         adapter: jsonpAdapter
       }).then(res => {
         if (searchMethod === "artist.search") {
