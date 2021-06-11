@@ -18,7 +18,7 @@ import Modal from './Modal.js';
 
 
 function Home() {
-  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow, lyrics, setLyrics} = useContext(AppContext);
+  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, counter, setCounter, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow, lyrics, setLyrics} = useContext(AppContext);
   let currentlyVisibleState = null;
   let modalVisible = null;
   const handleSearch = e => {
@@ -28,6 +28,7 @@ function Home() {
     let artist = e.target.search.value.replace(" ", "%20");
     setSearch(artist);
     setCurrentList("artistList");
+    setCounter(counter + 1);
     renderArtists();
   }
 
@@ -43,6 +44,7 @@ function Home() {
   if (currentList === "artistList") {
     modalVisible = null;
     setPrevState('home');
+    setLyrics(null);
     currentlyVisibleState = <ArtistList/>;
   } else if(currentList === "albumList") {
     modalVisible = null;
