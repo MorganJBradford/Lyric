@@ -23,7 +23,7 @@ function HandleApiCall() {
         } else if (searchMethod === "track.search" || searchMethod === "album.tracks.get") {
           const { track_list } = res.data.message.body;
           if (track_list.length < 1) {
-            setError('error');
+            setError('noTracks');
           } else {
             setTrackList(track_list);
           }

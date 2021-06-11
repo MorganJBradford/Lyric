@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { AppContext } from '../AppContext';
 import '../App.css';
 
-function verticallyCenteredModal(props) {
+function VerticallyCenteredModal(props) {
+  const { error } = useContext(AppContext);
+  console.log(error);
+  let visibleError;
+  
+  if (error === 'error') {
+    visibleError = "There are no lyrics available for this track";
+  } else {
+    visibleError = "There are no tracks available for this album";
+  }
+
   return(
     <Modal
     {...props}
-    size="lg"
+    size="lg" 
     aria-labelledby="contained-modal-title-vcenter"
     centered
     >
@@ -17,7 +28,7 @@ function verticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>There are no lyrics available for this track</p>
+        <p>{visibleError}</p>
       </Modal.Body>
       <Modal.Footer className="modal-foot">
         <Button variant="dark" onClick={props.onHide}>Close</Button>
@@ -26,4 +37,4 @@ function verticallyCenteredModal(props) {
   );
 }
 
-export default verticallyCenteredModal;
+export default VerticallyCenteredModal;

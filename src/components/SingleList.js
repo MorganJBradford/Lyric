@@ -16,7 +16,6 @@ function SongList(props) {
     setSearchMethod("track.lyrics.get");
     setCounter(counter + 1);
     renderTracks();
-    console.log(lyrics);
   }
 
   const renderTracks = () => {

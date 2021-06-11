@@ -40,6 +40,7 @@ function Home() {
     }
   }
 
+  console.log(currentList);
 
   if (currentList === "artistList") {
     modalVisible = null;
@@ -54,6 +55,7 @@ function Home() {
     modalVisible = null;
     setPrevState("artistList");
     if(error === 'error') {
+      console.log("We are in no track")
       modalVisible = true;
     }
     currentlyVisibleState = <SingleList/>
@@ -62,7 +64,7 @@ function Home() {
     setPrevState('albumList')
     currentlyVisibleState = <TrackList/>;
     console.log(error)
-    if(error === 'error') {
+    if (error === 'noTracks') {
       console.log("i'm in if")
       modalVisible = true;
     }
@@ -72,16 +74,17 @@ function Home() {
         setPrevState('singleList');
       } else if(prevState === 'albumList') {
         setPrevState('trackList');
-      }
+      } 
       currentlyVisibleState = <Lyrics/>;
     }
 
+    // 
     const backButton = (prevState) => {
       if (error !== "error" && currentList === "lyrics") {
         setLyrics(null);
-        setCurrentList(prevState)
+        setCurrentList(prevState);
       } else {
-        setCurrentList(prevState)
+        setCurrentList(prevState);
       }
     }
 
