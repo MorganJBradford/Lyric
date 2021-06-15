@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../AppContext";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,13 +7,12 @@ import '../App.css';
 import HandleApiCall from "./HandleApiCall";
 
 function AlbumList(props) {
-  const { albumList, setSearchMethod, setQueryType, setSearch, setCurrentList, setTrackList, counter, setCounter } = useContext(AppContext);
+  const { albumList, setSearchMethod, setQueryType, setSearch, setCurrentList, setTrackList, counter, setCounter, trackList, singleList } = useContext(AppContext);
 
   const handleClick = (id) => {
     setQueryType("album_id");
     setSearch(id);
     setSearchMethod("album.tracks.get");
-    setCurrentList("trackList");
     setCounter(counter + 1);
     renderAlbums();
   }
@@ -21,8 +20,14 @@ function AlbumList(props) {
   const renderAlbums = () => {
     return <HandleApiCall />
   }
-
-  setTrackList(null);
+  useEffect(() => {
+    if (trackList === null) {
+      setCurrentList('albumList')
+      
+    } else {
+      setCurrentList('trackList')
+    }
+  }, [trackList]);
 
   if (albumList !== null) {
     return (
