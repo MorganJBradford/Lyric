@@ -18,13 +18,16 @@ import Modal from './Modal.js';
 
 
 function Home() {
-  const { artistList, search, setSearch, animationState, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, counter, setCounter, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow, lyrics, setLyrics} = useContext(AppContext);
+  const { artistList, search, setSearch, setAlbumList, animationState, setSingleList, setAnimationState, setSearchMethod, setQueryType, currentList, setCurrentList, counter, setCounter, backBtn, setBackBtn, prevState, setPrevState, setArtistList, error, setError, setModalShow, modalShow, lyrics, setLyrics, setTrackList} = useContext(AppContext);
+
   let currentlyVisibleState = null;
   let modalVisible = null;
+
   const handleSearch = e => {
     e.preventDefault();
     setSearchMethod("artist.search");
     setQueryType("q_artist");
+    searchBarAnimation(e.target.search.value);
     let artist = e.target.search.value.replace(" ", "%20");
     setSearch(artist);
     setCurrentList("artistList");
@@ -40,7 +43,9 @@ function Home() {
     }
   }
 
-  console.log(currentList);
+  if(currentList === 'home') {
+    setAnimationState(false);
+  }
 
   if (currentList === "artistList") {
     modalVisible = null;
@@ -51,11 +56,13 @@ function Home() {
     modalVisible = null;
     setPrevState('artistList')
     currentlyVisibleState = <AlbumList/>;
+    if (error === 'noTracks') {
+      modalVisible = true;
+    }
   } else if (currentList === "singleList") {
     modalVisible = null;
     setPrevState("artistList");
     if(error === 'error') {
-      console.log("We are in no track")
       modalVisible = true;
     }
     currentlyVisibleState = <SingleList/>
@@ -63,11 +70,6 @@ function Home() {
     modalVisible = null;
     setPrevState('albumList')
     currentlyVisibleState = <TrackList/>;
-    console.log(error)
-    if (error === 'noTracks') {
-      console.log("i'm in if")
-      modalVisible = true;
-    }
   } else if(error !== "error" && currentList === "lyrics") {
       modalVisible = null;
       if(prevState === 'artistList') {
@@ -78,14 +80,28 @@ function Home() {
       currentlyVisibleState = <Lyrics/>;
     }
 
-    // 
     const backButton = (prevState) => {
       if (error !== "error" && currentList === "lyrics") {
         setLyrics(null);
+        setCurrentList(prevState); 
+      } else if(currentList === 'trackList' || currentList === 'singleList') {
+        setTrackList(null);
+        setCurrentList(prevState);
+      } else if (currentList === 'albumList') {
+        setAlbumList(null);
         setCurrentList(prevState);
       } else {
+        setAlbumList(null);
         setCurrentList(prevState);
       }
+    }
+
+    const searchBarAnimation = (search) => {
+      if(search !== undefined) {
+        setAnimationState(true);
+      } else if(currentList !== 'home') {
+        setAnimationState(true);
+      } 
     }
 
   if (currentList === "home") {
@@ -95,14 +111,14 @@ function Home() {
         <Container className="container-position">
           <Row>
             <Col lg={12}>
-              <Form className="form-style" id={animationState ? 'move' : ''} onSubmit={handleSearch}>
+              <Form className="form-style" id={animationState ? 'move' : 'move-back'} onSubmit={handleSearch}>
                 <Form.Group controlId="formBasicSearch">
                   <Form.Control size="lg" type="text" placeholder="Search..." name="search" className="input-color" required></Form.Control>
                   <Form.Text className="form-text">
                     Search by Artist
                   </Form.Text>
                 </Form.Group>                                
-                <Button size="lg" type="submit" id="button-color" onClick={() => setAnimationState(true)}>                                                            
+                <Button size="lg" type="submit" id="button-color" onClick={() => searchBarAnimation()}>                                                            
                   Enter
                 </Button>
               </Form>
@@ -128,7 +144,7 @@ function Home() {
                     Search by Artist
                   </Form.Text>
                 </Form.Group>                                
-                <Button size="lg" type="submit" id="button-color" className={animationState ? 'fade' : ''} onClick={() => setAnimationState(true)}>                                                            
+                <Button size="lg" type="submit" id="button-color" className={animationState ? 'fade' : ''} onClick={() => searchBarAnimation()}>                                                            
                   Enter
                 </Button>
               </Form>

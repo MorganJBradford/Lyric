@@ -28,9 +28,8 @@ function SongList(props) {
     } else {
       setCurrentList("lyrics")
     }
-  }, [lyrics])
+  }, [lyrics]);
 
-  
 
   if (trackList !== null) {
     return (
