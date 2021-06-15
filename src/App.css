@@ -35,6 +35,17 @@ html, body {
   100%{margin-top: 2%}
 }
 
+#move-back {
+  animation: move-back 1.5s ease-in;
+  animation-fill-mode: backwards;
+  animation-timing-function: cubic-bezier(.29,.19,.43,1);
+}
+
+@keyframes move-back {
+  0%{margin-top: 2%}
+  100%{margin-top: 17%}
+}
+
 .form-style {
   max-width: 40%;
   margin: 0 auto;
@@ -133,6 +144,16 @@ html, body {
 
 .no-lyrics {
   text-align: center;
+}
+
+.close {
+  background-color: transparent;
+  border: none;
+  font-size: 2.5em;
+}
+
+.sr-only {
+  display: none;
 }
 
 @media only screen and (max-width: 1300px) {
