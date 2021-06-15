@@ -28,8 +28,6 @@ function ArtistList(props) {
     return <HandleApiCall />
   }
 
-  setAlbumList(null);
-  setTrackList(null);
 
   if (artistList !== null) {
     return (
