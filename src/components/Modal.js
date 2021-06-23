@@ -11,8 +11,12 @@ function VerticallyCenteredModal(props) {
   
   if (error === 'error') {
     visibleError = "There are no lyrics available for this track";
-  } else {
+  } else if (error === 'noTracks') {
     visibleError = "There are no tracks available for this album";
+  } else if (error === "noArtists") {
+    visibleError = "This artist is not listed, sorry";
+  } else if (error === "noAlbums") {
+    visibleError = "There are no albums for this artist";
   }
 
   return(
