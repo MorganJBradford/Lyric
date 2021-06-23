@@ -30,7 +30,6 @@ function Home() {
     searchBarAnimation(e.target.search.value);
     let artist = e.target.search.value.replace(" ", "%20");
     setSearch(artist);
-    setCurrentList("artistList");
     setCounter(counter + 1);
     renderArtists();
   }
@@ -45,29 +44,42 @@ function Home() {
 
   if(currentList === 'home') {
     setAnimationState(false);
+    setArtistList(null);
+    if(error === "noArtists") {
+      modalVisible = true;
+    }
+    console.log(modalVisible + "home");
   }
 
+  useEffect(() => {
+    if (error === "noArtists") {
+      setCurrentList('home')
+    } else if(currentList === "artistList" && error === "noTracks") {
+      setCurrentList('artistList')
+    }
+    // if (error !== null) {
+    //   modalVisible = true
+    // }
+  }, [error]);
+
+ 
+
+
   if (currentList === "artistList") {
-    modalVisible = null;
     setPrevState('home');
     setLyrics(null);
     currentlyVisibleState = <ArtistList/>;
+    modalVisible = error !== null ? true : null;
   } else if(currentList === "albumList") {
-    modalVisible = null;
     setPrevState('artistList')
     currentlyVisibleState = <AlbumList/>;
-    if (error === 'noTracks') {
-      modalVisible = true;
-    }
+    modalVisible = error !== null ? true : null;
   } else if (currentList === "singleList") {
-    modalVisible = null;
     setPrevState("artistList");
-    if(error === 'error') {
-      modalVisible = true;
-    }
     currentlyVisibleState = <SingleList/>
+    modalVisible = error !== null ? true : null;
   } else if(currentList === "trackList") {
-    modalVisible = null;
+    modalVisible = null
     setPrevState('albumList')
     currentlyVisibleState = <TrackList/>;
   } else if(error !== "error" && currentList === "lyrics") {
@@ -118,10 +130,11 @@ function Home() {
                     Search by Artist
                   </Form.Text>
                 </Form.Group>                                
-                <Button size="lg" type="submit" id="button-color" onClick={() => searchBarAnimation()}>                                                            
+                <Button size="lg" type="submit" id="button-color" onClick={() => searchBarAnimation(), () => setModalShow(true)}>                                                            
                   Enter
                 </Button>
               </Form>
+              {modalVisible ? <Modal show={modalShow} onHide={() => setModalShow(false)}/> : <></>}
             </Col>
           </Row>
           <Row>
