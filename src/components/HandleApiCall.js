@@ -13,18 +13,28 @@ function HandleApiCall() {
       }).then(res => {
         if (searchMethod === "artist.search") {
           const {artist_list} = res.data.message.body;
-          setArtistList(artist_list);
+          if (artist_list.length < 1) {
+            setError("noArtists");
+          } else {
+            setArtistList(artist_list);
+            setCurrentList("artistList");
+          }
         } else if (searchMethod === "artist.albums.get") {
           const { album_list } = res.data.message.body;
           const filteredList = album_list.filter((obj, pos, arr) => {
             return arr.map(mapObj => mapObj.album["album_name"]).indexOf(obj.album["album_name"]) === pos;
           });
-          setAlbumList(filteredList);
+          if (filteredList.length < 1) {
+            setError("noAlbums")
+          } else {
+            setAlbumList(filteredList);
+          }
         } else if (searchMethod === "track.search" || searchMethod === "album.tracks.get") {
           const { track_list } = res.data.message.body;
           if (track_list.length < 1) {
             setError('noTracks');
           } else {
+            setCurrentList('trackList');
             setTrackList(track_list);
           }
         } else if (searchMethod === "track.lyrics.get") {
