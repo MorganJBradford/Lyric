@@ -12,10 +12,12 @@ export const AppProvider = ({children}) => {
   const [searchMethod, setSearchMethod] = useState(null);
   const [trackList, setTrackList] = useState(null);
   const [lyrics, setLyrics] = useState(null);
-  const [currentList, setCurrentList] = useState(null);
+  const [currentList, setCurrentList] = useState("home");
   const [backBtn, setBackBtn] = useState([]);
   const [prevState, setPrevState] = useState(null);
-  const [apiCall, setApiCall] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [modalShow, setModalShow] = useState(false);
+  const [error, setError] = useState(null);
 
 
   return (
@@ -42,7 +44,13 @@ export const AppProvider = ({children}) => {
         currentList,
         setCurrentList,
         prevState,
-        setPrevState
+        setPrevState,
+        counter,
+        setCounter,
+        modalShow,
+        setModalShow,
+        error,
+        setError
       }}
     >
       {children}

@@ -4,39 +4,52 @@ import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
 
 function HandleApiCall() {
-  const { setAlbumList, setArtistList, queryType, search, searchMethod, setTrackList, lyrics, setLyrics, setCurrentList} = useContext(AppContext);
+  const { setAlbumList, setModalShow, setArtistList, queryType, search, searchMethod, setTrackList, setLyrics, setCurrentList, albumList, counter, setError, lyrics} = useContext(AppContext);
   useEffect(() => {
+      setError(null);
       axios({
-        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY}`,
+        url: `https://api.musixmatch.com/ws/1.1/${searchMethod}?format=jsonp&callback=callback&${queryType}=${search}&apikey=${process.env.REACT_APP_MUSIX_API_KEY_MIKEY}`,
         adapter: jsonpAdapter
       }).then(res => {
-        // setApiCall(true);
         if (searchMethod === "artist.search") {
           const {artist_list} = res.data.message.body;
-          setArtistList(artist_list);
+          if (artist_list.length < 1) {
+            setError("noArtists");
+          } else {
+            setArtistList(artist_list);
+            setCurrentList("artistList");
+          }
         } else if (searchMethod === "artist.albums.get") {
           const { album_list } = res.data.message.body;
           const filteredList = album_list.filter((obj, pos, arr) => {
             return arr.map(mapObj => mapObj.album["album_name"]).indexOf(obj.album["album_name"]) === pos;
           });
-          setAlbumList(filteredList);
-        } else if (searchMethod === "track.search") {
+          if (filteredList.length < 1) {
+            setError("noAlbums")
+          } else {
+            setAlbumList(filteredList);
+          }
+        } else if (searchMethod === "track.search" || searchMethod === "album.tracks.get") {
           const { track_list } = res.data.message.body;
-          setTrackList(track_list);
-        } else if (searchMethod === "album.tracks.get") {
-          const { track_list } = res.data.message.body;
-          setTrackList(track_list);
+          if (track_list.length < 1) {
+            setError('noTracks');
+          } else {
+            setCurrentList('trackList');
+            setTrackList(track_list);
+          }
         } else if (searchMethod === "track.lyrics.get") {
-          console.log(res.data.message)
           const { lyrics_body } = res.data.message.body.lyrics;
-          setLyrics(lyrics_body);
+          if (lyrics_body.length < 1) {
+            setError('error');
+          } else {
+            setLyrics(lyrics_body);
+          }
         }
-        // setApiCall(False);
       }).catch(err => {
-          console.log(err)
-          setCurrentList("error");
+          console.log(err);
+          setError("error");
         });
-  }, [search]);
+  }, [counter]);
   
   return (
     <>
